@@ -31,13 +31,13 @@ Titanium.UI.setBackgroundColor('#000');
  * All we have to do here is create the wrappers / window object to correspond with a tab
  */
 var about = Titanium.UI.createWindow({  
-    title: L('about'),
+    title: L('tab-about'),
     url: 'about.js',
     navBarHidden: true
 });	
 
 var profile = Titanium.UI.createWindow({  
-	title: L('profile'),
+	title: L('tab-profile'),
 	url: 'profile.js',
 	navBarHidden: true
 });
