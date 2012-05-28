@@ -9,20 +9,13 @@
  * - Require and open our top-level UI component
  *  
  */
- 
-// determine platform and form factor and render approproate components
-var osname = Ti.Platform.osname,
-	version = Ti.Platform.version,
-	height = Ti.Platform.displayCaps.platformHeight,
-	width = Ti.Platform.displayCaps.platformWidth;
-
 
 /**
  * This sets the background color of the master UIView (when there are no windows/tab groups on it)
  * After the user identifies their vibrational color, we'll want the background color set to reflect that
  */ 
 Titanium.UI.setBackgroundColor('#000');
-
+Titanium.UI.iPhone.hideStatusBar();
 
 /**
  * Create Application Windows
@@ -71,7 +64,7 @@ var profileTab = Titanium.UI.createTab({
 var locationTab = Titanium.UI.createTab({  
 	icon: './images/tab_compass.png',
 	title: L('tab-location'),
-	window: compass
+	window: location
 });
 
 tabGroup.addTab(aboutTab);  
