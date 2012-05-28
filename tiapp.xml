@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ti:app xmlns:ti="http://ti.appcelerator.org">
+    <property name="acs-oauth-secret-production" type="string">sPnAwSh1ltMs0jt4QfeUAVg2tThXW5uu</property>
+    <property name="acs-oauth-key-production" type="string">JbJNNm0Nny58Z9QMxWPvBo6UxUJ0Hv6D</property>
+    <property name="acs-api-key-production" type="string">Lex6cRkMOoiHoxHgktR3H7LtGLLHvVYG</property>
+    <property name="acs-oauth-secret-development" type="string">L6a4Fq7oQop37TOMklinefPD2JZuVNRz</property>
+    <property name="acs-oauth-key-development" type="string">00BCehi9vBhEzIiCBwy5tJg4CMB3NIka</property>
+    <property name="acs-api-key-development" type="string">x74ksuV7RbrekVUx4yPU58fVm6M0kIXt</property>
     <deployment-targets>
         <target device="mobileweb">true</target>
         <target device="iphone">true</target>
@@ -8,13 +14,13 @@
         <target device="blackberry">false</target>
     </deployment-targets>
     <sdk-version>2.0.1.GA2</sdk-version>
-    <id>com.vibrational</id>
-    <name>Vibrational</name>
+    <id>com.j2c.vibrational</id>
+    <name>Vibrational App</name>
     <version>1.0</version>
-    <publisher>jonhemstreet</publisher>
-    <url>http://</url>
+    <publisher>clay</publisher>
+    <url>http://vibration.al</url>
     <description>not specified</description>
-    <copyright>2012 by jonhemstreet</copyright>
+    <copyright>2012 by clay</copyright>
     <icon>appicon.png</icon>
     <persistent-wifi>false</persistent-wifi>
     <prerendered-icon>false</prerendered-icon>
@@ -23,7 +29,7 @@
     <fullscreen>false</fullscreen>
     <navbar-hidden>false</navbar-hidden>
     <analytics>true</analytics>
-    <guid>2619a1b8-109a-41f6-a881-0e15b7d220b6</guid>
+    <guid>55d4a007-a0db-4362-bd3e-cd618fc6c20d</guid>
     <property name="ti.ui.defaultunit">system</property>
     <iphone>
         <orientations device="iphone">
@@ -45,5 +51,7 @@
         </splash>
         <theme>default</theme>
     </mobileweb>
-    <modules/>
+    <modules>
+        <module platform="commonjs" version="2.0.1">ti.cloud</module>
+    </modules>
 </ti:app>
