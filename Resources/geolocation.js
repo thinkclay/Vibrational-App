@@ -88,12 +88,19 @@ if (Titanium.Platform.name == 'android')
 	 	var mapview = Titanium.Map.createView
 		({
 			mapType: Titanium.Map.STANDARD_TYPE,
-			region: {latitude: latitude, longitude: longitude, latitudeDelta:0.0001, longitudeDelta:0.0001},
+			region: {latitude: latitude, longitude: longitude, latitudeDelta:0.01, longitudeDelta:0.01},
 			animate:true,
 			regionFit:true,
 			userLocation:true,
 			visible: true,
 			annotations:presetAnnotations
+		});
+		
+		var userLocationPin = Titanium.Map.createAnnotation
+		({
+			latitude:latitude,
+			longitude: longitude,
+
 		});
 		
 	    win.add(mapview);
@@ -105,10 +112,12 @@ if (Titanium.Platform.name == 'android')
 		
 		mapview.selectAnnotation(testZone);
 		
-		/*
+		win.add(mapview);
+		
 		//
 		// NAVBAR BUTTONS
 		//
+	
 			var removeAll = null;
 			var atl = null;
 			var sat = null;
@@ -130,7 +139,7 @@ if (Titanium.Platform.name == 'android')
 		
 				atl.addEventListener('click', function()
 				{
-					// set location to User Location
+					// set location to atlanta
 					mapview.setLocation(userLocation);
 	
 					// activate annotation
@@ -235,13 +244,9 @@ if (Titanium.Platform.name == 'android')
 	
 				wireClickHandlers();
 	
-				//win.setToolbar([flexSpace,std,flexSpace,hyb,flexSpace,sat,flexSpace,atl,flexSpace,flexSpace,zoomin,flexSpace,zoomout,flexSpace]);
+				win.setToolbar([flexSpace,std,flexSpace,hyb,flexSpace,sat,flexSpace,atl,flexSpace,flexSpace,zoomin,flexSpace,zoomout,flexSpace]);
 				
-			} 
-			
-			 
-			else 
-			{
+			} else {
 				
 				var activity = Ti.Android.currentActivity;
 				activity.onCreateOptionsMenu = function(e) 
@@ -259,9 +264,7 @@ if (Titanium.Platform.name == 'android')
 					wireClickHandlers();
 				};	
 			}
-			*/
-			
-			
+	
 			//
 			// EVENT LISTENERS
 			//

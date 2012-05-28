@@ -1,8 +1,13 @@
-manifest
-.DS_Store
-tmp
+# Titanium Stuff
+.project
 build
 build.log
-*.log
-.project
-.fastdev.lock
+tiapp.xml
+manifest
+
+# Mac Stuff
+.DS_Store
+
+# Generic
+tmp
+._*

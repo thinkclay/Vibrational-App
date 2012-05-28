@@ -7,14 +7,21 @@
  * - Bootstrap the application with any data we need
  * - Check for dependencies like device type, platform version or network connection
  * - Require and open our top-level UI component
+ *  
  */
+ 
+// determine platform and form factor and render approproate components
+var osname = Ti.Platform.osname,
+	version = Ti.Platform.version,
+	height = Ti.Platform.displayCaps.platformHeight,
+	width = Ti.Platform.displayCaps.platformWidth;
+
 
 /**
- * Set the background color of the master UIView (when there are no windows/tab groups on it)
+ * This sets the background color of the master UIView (when there are no windows/tab groups on it)
  * After the user identifies their vibrational color, we'll want the background color set to reflect that
  */ 
 Titanium.UI.setBackgroundColor('#000');
-Titanium.UI.iPhone.hideStatusBar(); 
 
 
 /**
@@ -35,11 +42,12 @@ var profile = Titanium.UI.createWindow({
 	navBarHidden: true
 });
 
-var compass = Titanium.UI.createWindow({  
+var location = Titanium.UI.createWindow({  
 	title: L('tab-location'),
 	url: 'geolocation.js',
 	navBarHidden: true
 });
+
 
 /**
  * Creat Application Tabs
@@ -50,24 +58,24 @@ var tabGroup = Titanium.UI.createTabGroup();
 
 var aboutTab = Titanium.UI.createTab({  
 	icon: './images/tab_about.png',
-	title: 'About',
+	title: L('tab-about'),
 	window: about
 });
 
 var profileTab = Titanium.UI.createTab({  
 	icon: './images/tab_profile.png',
-	title: 'Profile',
+	title: L('tab-profile'),
 	window: profile
 });
 
-var compassTab = Titanium.UI.createTab({  
-	icon:'./images/tab_compass.png',
-	title:'Compass',
-	window:compass
+var locationTab = Titanium.UI.createTab({  
+	icon: './images/tab_compass.png',
+	title: L('tab-location'),
+	window: compass
 });
 
 tabGroup.addTab(aboutTab);  
 tabGroup.addTab(profileTab);  
-tabGroup.addTab(compassTab);  
+tabGroup.addTab(locationTab);  
 
 tabGroup.open();	
