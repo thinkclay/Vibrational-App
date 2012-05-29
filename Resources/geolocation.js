@@ -7,61 +7,7 @@ if (Titanium.Platform.name == 'android')
 	isAndroid = true;
 }
 
-//
-// CREATE ANNOTATIONS
-//		
-	var testParams = {
-		latitude:39.984577,
-		longitude:-105.084774,
-		title:"Clay's Naughty No No Zone",
-		subtitle:'Titty Sprinkles',
-		animate:true,
-		leftButton:'./images/arrae.jpg',
-		rightButton: Titanium.UI.iPhone.SystemButton.DISCLOSURE,
-		myid:1 // CUSTOM ATTRIBUTE THAT IS PASSED INTO EVENT OBJECTS
-	};
-	
-	// Declare testParams as testZone annotation
-	var testZone = Titanium.Map.createAnnotation(testParams);
-
-	var homeBase = Titanium.Map.createAnnotation
-	({
-		latitude:39.735673,
-		longitude:-104.993806,
-		title:"Jon's Shag Pad",
-		subtitle:'Denver, Co',
-		pincolor:Titanium.Map.ANNOTATION_GREEN,
-		animate:true,
-		rightButton: './images/apple_logo.jpg',
-		myid:2 // CUSTOM ATTRIBUTE THAT IS PASSED INTO EVENT OBJECTS
-	});
-	
-	var atlantaParams = {
-		latitude:39.768156,
-		longitude:-104.95235,
-		title:"Atlanta, GA",
-		title: 'Arrae',
-		subtitle:'Creative Agency',
-		animate:true,
-		leftButton:'./images/arrae.jpg',
-		rightButton: Titanium.UI.iPhone.SystemButton.DISCLOSURE,
-		myid:3 // CUSTOM ATTRIBUTE THAT IS PASSED INTO EVENT OBJECTS
-	};
-
-
-	if (!isAndroid) {
-		atlantaParams.pincolor = Titanium.Map.ANNOTATION_PURPLE;
-	} else {
-		atlantaParams.pinImage = "./images/map-pin.png";
-	}
-
-	var atlanta = Titanium.Map.createAnnotation(atlantaParams);
-
 // CREATE MAP VIEW
-
-	// Set predefined Annotations on map
-	var presetAnnotations = [atlanta,homeBase,testZone];
-	
 	Ti.Geolocation.purpose = 'Getting user Location';
 	
 	Titanium.Geolocation.getCurrentPosition(function(e)
@@ -88,36 +34,61 @@ if (Titanium.Platform.name == 'android')
 	 	var mapview = Titanium.Map.createView
 		({
 			mapType: Titanium.Map.STANDARD_TYPE,
-			region: {latitude: latitude, longitude: longitude, latitudeDelta:0.01, longitudeDelta:0.01},
+			region: {latitude: latitude, longitude: longitude, latitudedelta: .5, longitudedelta: .5},
 			animate:true,
 			regionFit:true,
 			userLocation:true,
-			visible: true,
-			annotations:presetAnnotations
+			visible: true
 		});
-		
-		var userLocationPin = Titanium.Map.createAnnotation
-		({
-			latitude:latitude,
-			longitude: longitude,
-
-		});
-		
-	    win.add(mapview);
-	    
-	    if (!isAndroid)
-	    {
-			mapview.addAnnotation(atlanta);
-		}
-		
-		mapview.selectAnnotation(testZone);
 		
 		win.add(mapview);
 		
 		//
+		// CREATE ANNOTATIONS
+		//		
+            for(var i = 1; i < 10; i ++) 
+            {
+                var pin = Titanium.Map.createAnnotation
+				({
+					latitude:latitude+i,
+					longitude:longitude+i,
+					title:"P".i,
+					pincolor: Titanium.Map.ANNOTATION_PURPLE,
+					myid:i // CUSTOM ATTRIBUTE THAT IS PASSED INTO EVENT OBJECTS
+				});
+				
+                // suppose mapView is your map object
+                mapview.addAnnotation(pin);
+            }
+            
+		var p1 = Titanium.Map.createAnnotation
+		({
+			latitude:37.786078,
+			longitude:-122.405948,
+			title:"P1",
+			pincolor: Titanium.Map.ANNOTATION_RED,
+			visible: true,
+			myid:1 // CUSTOM ATTRIBUTE THAT IS PASSED INTO EVENT OBJECTS
+		});
+		
+		mapview.addAnnotation(p1);
+		
+		var p2 = Titanium.Map.createAnnotation 
+		({
+			latitude:37.787000,
+			longitude:-122.406000,
+			title:"P2",
+			pincolor: Titanium.Map.ANNOTATION_GREEN,
+			visible: true,
+			myid:2 // CUSTOM ATTRIBUTE THAT IS PASSED INTO EVENT OBJECTS
+		});
+
+		mapview.addAnnotation(p2);
+	
+		//
 		// NAVBAR BUTTONS
 		//
-	
+		
 			var removeAll = null;
 			var atl = null;
 			var sat = null;
@@ -328,7 +299,7 @@ if (Titanium.Platform.name == 'android')
 				}
 			}
 		});
-	
+		
 		// annotation click event listener (same as above except only fires for a given annotation)
 		atlanta.addEventListener('click', function(evt)
 		{
@@ -353,5 +324,6 @@ if (Titanium.Platform.name == 'android')
 			var annotation = evt.source;
 			var clicksource = evt.clicksource;
 			Ti.API.info('testZone annotation click clicksource = ' + clicksource);
-		});	
+		});
+			
 	});
