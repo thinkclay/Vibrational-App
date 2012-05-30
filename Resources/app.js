@@ -23,23 +23,26 @@ Titanium.UI.iPhone.hideStatusBar();
  * Windows are loaded as static .js files like a static HTML site would be
  * All we have to do here is create the wrappers / window object to correspond with a tab
  */
-var about = Titanium.UI.createWindow({  
-    title: L('tab-about'),
-    url: 'about.js',
-    navBarHidden: true
-});	
+var about = Titanium.UI.createWindow
+	({  
+    	title: L('tab-about'),
+    	url: 'about.js',
+    	navBarHidden: true
+	});	
 
-var profile = Titanium.UI.createWindow({  
-	title: L('tab-profile'),
-	url: 'profile.js',
-	navBarHidden: true
-});
+var profile = Titanium.UI.createWindow
+	({  
+		title: L('tab-profile'),
+		url: 'profile.js',
+		navBarHidden: true
+	});
 
-var location = Titanium.UI.createWindow({  
-	title: L('tab-location'),
-	url: 'geolocation.js',
-	navBarHidden: true
-});
+var location = Titanium.UI.createWindow
+	({  
+		title: L('tab-location'),
+		url: 'geolocation.js',
+		navBarHidden: true
+	});
 
 
 /**
@@ -49,23 +52,26 @@ var location = Titanium.UI.createWindow({
  */
 var tabGroup = Titanium.UI.createTabGroup();
 
-var aboutTab = Titanium.UI.createTab({  
-	icon: './images/tab_about.png',
-	title: L('tab-about'),
-	window: about
-});
+var aboutTab = Titanium.UI.createTab
+	({  
+		icon: './images/tab_about.png',
+		title: L('tab-about'),
+		window: about
+	});
 
-var profileTab = Titanium.UI.createTab({  
-	icon: './images/tab_profile.png',
-	title: L('tab-profile'),
-	window: profile
-});
+var profileTab = Titanium.UI.createTab
+	({  
+		icon: './images/tab_profile.png',
+		title: L('tab-profile'),
+		window: profile
+	});
 
-var locationTab = Titanium.UI.createTab({  
-	icon: './images/tab_compass.png',
-	title: L('tab-location'),
-	window: location
-});
+var locationTab = Titanium.UI.createTab
+	({  
+		icon: './images/tab_compass.png',
+		title: L('tab-location'),
+		window: location
+	});
 
 tabGroup.addTab(aboutTab);  
 tabGroup.addTab(profileTab);  
