@@ -20,55 +20,6 @@ if (Titanium.Platform.name == 'android')
 	 
 	    var longitude = e.coords.longitude;
 	    var latitude = e.coords.latitude;
-	    
-	    //
-		// XHR GEO Request
-		//
-		function getLocal()
-		{
-			// create table view data object
-			var data = [];
-			
-			var xhr = Ti.Network.createHTTPClient();
-			xhr.timeout = 1000000;	
-			xhr.open("POST","http://app.vibration.al/geolocation.js?latitude=" + latitude +"&longitude=" + longitude);
-		
-			xhr.onload = function()
-			{
-				try
-				{
-					var users_around = eval('('+this.responseText+')');
-				
-					for (var c = 0; c < users_around.length; c++)
-					{
-		
-						var nearby_color 		= users_around[c].color;				
-						var nearby_latitude 	= users_around[c].latitude;
-						var nearby_longitude 	= users_around[c].longitude;
-						
-						var pin = Titanium.Map.createAnnotation
-						({
-							latitude : nearby_latitude,
-							longitude : nearby_longitude,
-							title : "P" . i,
-							pincolor : Titanium.Map.ANNOTATION_PURPLE,
-							myid : i // CUSTOM ATTRIBUTE THAT IS PASSED INTO EVENT OBJECTS
-						});
-					}
-				
-                // suppose mapView is your map object
-                mapview.addAnnotation(pin);
-				}
-				catch(E){
-					alert(E);
-				}
-			};
-			// Get the data
-			xhr.send();	
-		}
-		
-		// Execute the twitter function above
-
 	
 	    //
 	    //CREATE MAP VIEW
@@ -86,6 +37,62 @@ if (Titanium.Platform.name == 'android')
 		
 		win.add(mapview);
 		
+		    
+	    //
+		// XHR GEO Request
+		//
+		function getLocal()
+		{
+			// create table view data object
+			var data = [];
+			
+			var xhr = Ti.Network.createHTTPClient();
+			xhr.timeout = 1000000;	
+			xhr.open("GET","http://app.vibration.al/api/geolocation?latitude=" + latitude +"&longitude=" + longitude);
+		
+			xhr.onload = function()
+			{
+				try
+				{
+					Ti.API.log(this.responseText);
+					var users_around = this.responseText;
+
+					for (var c = 0; c < users_around.length; c++)
+					{
+						// var nearby_color 		= users_around[c].color;				
+						var nearby_latitude 	= users_around[c].latitude;
+						var nearby_longitude 	= users_around[c].longitude;
+
+						alert(nearby_latitude);
+						alert(nearby_longitude);
+						
+						var pin = Titanium.Map.createAnnotation
+						({
+							latitude : nearby_latitude,
+							longitude : nearby_longitude,
+							title : "P" . i,
+							pincolor : Titanium.Map.ANNOTATION_RED,
+							myid : i // CUSTOM ATTRIBUTE THAT IS PASSED INTO EVENT OBJECTS
+						});
+		
+					}
+				
+                // suppose mapView is your map object
+                mapview.addAnnotation(pin);
+
+				}
+				catch(E){
+					alert(E);
+				}
+			};
+			// Get the data
+			xhr.send();	
+		}
+		
+		// Execute the twitter function above
+		getLocal();
+	
+		/*
 		//
 		// CREATE ANNOTATIONS
 		//		
@@ -105,18 +112,6 @@ if (Titanium.Platform.name == 'android')
                 // suppose mapView is your map object
                 mapview.addAnnotation(pin);
             }
-            
-		var p1 = Titanium.Map.createAnnotation
-		({
-			latitude:37.786078,
-			longitude:-122.405948,
-			title:"P1" . i,
-			pincolor: Titanium.Map.ANNOTATION_RED,
-			visible: true,
-			myid:1 // CUSTOM ATTRIBUTE THAT IS PASSED INTO EVENT OBJECTS
-		});
-		
-		mapview.addAnnotation(p1);
 		
 		var p2 = Titanium.Map.createAnnotation 
 		({
@@ -129,6 +124,8 @@ if (Titanium.Platform.name == 'android')
 		});
 
 		mapview.addAnnotation(p2);
+		
+
 	
 		//
 		// NAVBAR BUTTONS
@@ -307,7 +304,6 @@ if (Titanium.Platform.name == 'android')
 			// map view click event listener
 			mapview.addEventListener('click',function(evt)
 			{
-	
 				// map event properties
 				var annotation = evt.annotation;
 				var title = evt.title;
@@ -370,5 +366,5 @@ if (Titanium.Platform.name == 'android')
 			var clicksource = evt.clicksource;
 			Ti.API.info('testZone annotation click clicksource = ' + clicksource);
 		});
-			
+		*/
 	});
