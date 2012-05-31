@@ -2,42 +2,26 @@ var win = Ti.UI.currentWindow;
 
 win.hideNavBar();
 
-// Create Arrae Logo
-var arraeLogo = Titanium.UI.createImageView({
-	image: "./images/arrae.png",
-	left: 0,
-	top: 25,
-	width: 300,
-	height : 'auto'
+var label = Ti.UI.createLabel({
+	color: '#eee',
+	font: { fontSize: 16 },
+	left: 15,
+	right: 15,
+	shadowColor: '#333',
+	shadowOffset: {x:1, y:1},
+	text: 'Welcome to Just2Choices Vibrational App. With this app you can find the vibes you are giving off',
+	textAlign: Ti.UI.TEXT_ALIGNMENT_LEFT,
+	top: 30,
+	height: 'auto',
+	width: 'auto'
 });
-// Add in Arrae Logo variable
-win.add(arraeLogo);
-
-// Name nav Tab
-var label = Titanium.UI.createLabel({
-	color:'#999',
-	text:'Vibrational App Built By Arrae',
-	font:
-	{
-		fontSize:20,
-		fontFamily:'Helvetica Neue'
-	},
-	textAlign:'center'
-});
-
-// Add in label for tab
 win.add(label);
-
-
-var win = Ti.UI.currentWindow;
-
-win.hideNavBar();
 
 
 var twitter_name = 'just2choices';
 
-function getTweets(screen_name){
-
+function getTweets(screen_name)
+{
 	// create table view data object
 	var data = [];
 	
@@ -61,7 +45,7 @@ function getTweets(screen_name){
 				var row = Ti.UI.createTableViewRow({
 					color			: '#fff',
 					backgroundColor : '#eee',
-					height			: 50			
+					height			: 65			
 				});
 
 				// Tweet text
@@ -70,7 +54,7 @@ function getTweets(screen_name){
 					font	: { fontSize: 12 },
 					top		: 5,
 					bottom	: 5,
-					left	: 50,
+					left	: 60,
 					right	: 10,					
 					color	: '#222'			
 				});
@@ -81,9 +65,9 @@ function getTweets(screen_name){
 					image	: avatar,
 					width	: 35,
 					height	: 35,
-					top		: 5,
+					top		: 15,
 					bottom	: 5,
-					left	: 5
+					left	: 10
 				});
 				row.add(img);
 				
@@ -94,7 +78,7 @@ function getTweets(screen_name){
 				data: data,
 				layout	: 'vertical',
 				bottom	: 0,
-				height	: '73%',
+				height	: 130,
 				separatorColor: '#999'
 			});
 			win.add(tableview);
