@@ -1,12 +1,12 @@
 var win = Titanium.UI.currentWindow;
 
-var isAndroid = false;
+var is_android = false;
 
 if (Titanium.Platform.name == 'android') 
 {
-	isAndroid = true;
+	is_android = true;
 }
-
+	
 // CREATE MAP VIEW
 	Ti.Geolocation.purpose = 'Getting user Location';
 	
@@ -20,13 +20,56 @@ if (Titanium.Platform.name == 'android')
 	 
 	    var longitude = e.coords.longitude;
 	    var latitude = e.coords.latitude;
-	    var altitude = e.coords.altitude;
-	    var heading = e.coords.heading;
-	    var accuracy = e.coords.accuracy;
-	    var speed = e.coords.speed;
-	    var timestamp = e.coords.timestamp;
-	    var altitudeAccuracy = e.coords.altitudeAccuracy;
 	    
+	    //
+		// XHR GEO Request
+		//
+		function getLocal()
+		{
+			// create table view data object
+			var data = [];
+			
+			var xhr = Ti.Network.createHTTPClient();
+			xhr.timeout = 1000000;	
+			xhr.open("POST","http://app.vibration.al/geolocation.js?latitude=" + latitude +"&longitude=" + longitude);
+		
+			xhr.onload = function()
+			{
+				try
+				{
+					var users_around = eval('('+this.responseText+')');
+				
+					for (var c = 0; c < users_around.length; c++)
+					{
+		
+						var nearby_color 		= users_around[c].color;				
+						var nearby_latitude 	= users_around[c].latitude;
+						var nearby_longitude 	= users_around[c].longitude;
+						
+						var pin = Titanium.Map.createAnnotation
+						({
+							latitude : nearby_latitude,
+							longitude : nearby_longitude,
+							title : "P" . i,
+							pincolor : Titanium.Map.ANNOTATION_PURPLE,
+							myid : i // CUSTOM ATTRIBUTE THAT IS PASSED INTO EVENT OBJECTS
+						});
+					}
+				
+                // suppose mapView is your map object
+                mapview.addAnnotation(pin);
+				}
+				catch(E){
+					alert(E);
+				}
+			};
+			// Get the data
+			xhr.send();	
+		}
+		
+		// Execute the twitter function above
+
+	
 	    //
 	    //CREATE MAP VIEW
 	    //
@@ -46,13 +89,15 @@ if (Titanium.Platform.name == 'android')
 		//
 		// CREATE ANNOTATIONS
 		//		
+			var annotations = [];
+			
             for(var i = 1; i < 10; i ++) 
             {
                 var pin = Titanium.Map.createAnnotation
 				({
 					latitude:latitude+i,
 					longitude:longitude+i,
-					title:"P".i,
+					title:"P" . i,
 					pincolor: Titanium.Map.ANNOTATION_PURPLE,
 					myid:i // CUSTOM ATTRIBUTE THAT IS PASSED INTO EVENT OBJECTS
 				});
@@ -65,7 +110,7 @@ if (Titanium.Platform.name == 'android')
 		({
 			latitude:37.786078,
 			longitude:-122.405948,
-			title:"P1",
+			title:"P1" . i,
 			pincolor: Titanium.Map.ANNOTATION_RED,
 			visible: true,
 			myid:1 // CUSTOM ATTRIBUTE THAT IS PASSED INTO EVENT OBJECTS
@@ -75,8 +120,8 @@ if (Titanium.Platform.name == 'android')
 		
 		var p2 = Titanium.Map.createAnnotation 
 		({
-			latitude:37.787000,
-			longitude:-122.406000,
+			latitude:37.785500,
+			longitude:-122.406500,
 			title:"P2",
 			pincolor: Titanium.Map.ANNOTATION_GREEN,
 			visible: true,
@@ -147,7 +192,7 @@ if (Titanium.Platform.name == 'android')
 				});	
 			};
 	
-			if (!isAndroid)
+			if (!is_android)
 			{
 				removeAll = Titanium.UI.createButton
 				({
