@@ -2,24 +2,74 @@ var win = Ti.UI.currentWindow;
 
 win.hideNavBar();
 
-var label = Ti.UI.createLabel({
-	color: '#eee',
-	font: { fontSize: 16 },
-	left: 15,
-	right: 15,
-	shadowColor: '#333',
-	shadowOffset: {x:1, y:1},
-	text: 'Welcome to Just2Choices Vibrational App. With this app you can find the vibes you are giving off',
-	textAlign: Ti.UI.TEXT_ALIGNMENT_LEFT,
-	top: 30,
-	height: 'auto',
-	width: 'auto'
+var background = Ti.UI.createImageView({
+	image:			'images/bg-logo.png',
+	top: 			'22%',
+	zIndex: 		0
 });
-win.add(label);
+win.add(background);
 
 
-var twitter_name = 'just2choices';
+var header = Ti.UI.createImageView({
+	image: 			'images/text-j2c-vibrational.png',
+	left: 			15,
+	top:			20,
+});
+win.add(header);
 
+
+var about_text = 
+	'The Vibrational App is a concept created by just2Choices, ' +
+	'a principal founded around the idea that everything is based on cause and effect. ' +
+	'Even the smallest choices you make everyday shift your vibrational patterns in energy, emotions and outcome. ' +
+	'This app will introduce you to your current and potential vibrational color, and those around you.';
+ 	
+var about = Ti.UI.createLabel({
+	color: 			'#eee',
+	font: 			{ fontSize: 15, lineHeight: 20 },
+	left: 			15,
+	right: 			15,
+	text: 			about_text,	
+	textAlign: 		Ti.UI.TEXT_ALIGNMENT_LEFT,
+	top: 			60,
+	height: 		'auto',
+	width: 			'auto'
+});
+win.add(about);
+
+
+var twitter_header_background = Titanium.UI.createView({ 
+	backgroundGradient: {
+		type:		'linear',
+		colors:[
+			{ color: '#252525', position: 0.0 }, 
+			{ color: '#010101', position: 1 }
+		]
+	},
+	bottom:			'30%',
+	height:			24,
+	width:			'100%',
+	zIndex:			2
+});
+win.add(twitter_header_background);
+
+var twitter_header = Ti.UI.createImageView({
+	bottom: 		'30.5%',
+	height:			18,
+	image:			'images/text-j2c-twitter.png',
+	left: 			15,
+	width:			183,
+	zIndex: 		3
+});
+win.add(twitter_header);
+
+
+/**
+ * Create a twitter feed in table form by passing a screen name
+ * 
+ * @param	string	screen_name	the twitter handle without the @ sign
+ * @return	void
+ */
 function getTweets(screen_name)
 {
 	// create table view data object
@@ -50,24 +100,23 @@ function getTweets(screen_name)
 
 				// Tweet text
 				var label = Ti.UI.createLabel({
-					text	: tweet,
-					font	: { fontSize: 12 },
-					top		: 5,
 					bottom	: 5,
-					left	: 60,
+					color	: '#222',
+					font	: { fontSize: 12 },
+					left	: 63,
 					right	: 10,					
-					color	: '#222'			
+					text	: tweet,
+					top		: 5
 				});
 				row.add(label);
 				
 				// Avatar
 				var img = Ti.UI.createImageView({
+					height	: 32,
 					image	: avatar,
-					width	: 35,
-					height	: 35,
-					top		: 15,
-					bottom	: 5,
-					left	: 10
+					left	: 15,
+					top		: 16,
+					width	: 32
 				});
 				row.add(img);
 				
@@ -78,7 +127,7 @@ function getTweets(screen_name)
 				data: data,
 				layout	: 'vertical',
 				bottom	: 0,
-				height	: 130,
+				height	: '30%',
 				separatorColor: '#999'
 			});
 			win.add(tableview);
@@ -92,4 +141,4 @@ function getTweets(screen_name)
 }
 
 // Execute the twitter function above
-getTweets(twitter_name);
+getTweets('just2choices');

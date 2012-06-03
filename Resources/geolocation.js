@@ -8,77 +8,83 @@ if (Titanium.Platform.name == 'android')
 }
 	
 // CREATE MAP VIEW
-	Ti.Geolocation.purpose = 'Getting user Location';
+Ti.Geolocation.purpose = 'Getting user Location';
 	
-	Titanium.Geolocation.getCurrentPosition(function(e)
+function check_data(data)
+{
+	for ( var i = 0; i < data.length; i++ )
 	{
-	    if (e.error)
-	    {
-	        alert('HFL cannot get your current location');
-	        return;
-	    }
+		Ti.API.log('Lat: '+data[i].latitude);
+		Ti.API.log('Lon: '+data[i].longitude);
+	}
+}
+	
+Titanium.Geolocation.getCurrentPosition(function(e) {
+    
+    if (e.error)
+    {
+        alert('We could not determine your current location');
+        return;
+    }
 	 
-	    var longitude = e.coords.longitude;
-	    var latitude = e.coords.latitude;
+    var longitude = e.coords.longitude;
+    var latitude = e.coords.latitude;
 	
-	    //
-	    //CREATE MAP VIEW
-	    //
+    // CREATE MAP VIEW
 	
-	 	var mapview = Titanium.Map.createView
-		({
+ 	var mapview = Titanium.Map.createView(
+ 		{
 			mapType: Titanium.Map.STANDARD_TYPE,
-			region: {latitude: latitude, longitude: longitude, latitudedelta: .5, longitudedelta: .5},
-			animate:true,
-			regionFit:true,
-			userLocation:true,
+			region: { latitude: latitude, longitude: longitude, latitudedelta: .5, longitudedelta: .5 },
+			animate: true,
+			regionFit: true,
+			userLocation: true,
 			visible: true
-		});
+		}
+	);
+	win.add(mapview);
+				    
+    //
+	// XHR GEO Request
+	//
+	function getLocal()
+	{
+		// create table view data object
+		var data = [];
+		var xhr = Ti.Network.createHTTPClient();
 		
-		win.add(mapview);
-		
-		    
-	    //
-		// XHR GEO Request
-		//
-		function getLocal()
+		xhr.timeout = 1000000;	
+		xhr.open("GET","http://app.vibration.al/api/geolocation?latitude=37.78583526611328&longitude=-122.40641784667969");
+	
+		xhr.onload = function()
 		{
-			// create table view data object
-			var data = [];
-			
-			var xhr = Ti.Network.createHTTPClient();
-			xhr.timeout = 1000000;	
-			xhr.open("GET","http://app.vibration.al/api/geolocation?latitude=" + latitude +"&longitude=" + longitude);
-		
-			xhr.onload = function()
-			{
-				try
-				{
-					Ti.API.log(this.responseText);
-					var users_around = this.responseText;
-
-					for (var c = 0; c < users_around.length; c++)
-					{
-						// var nearby_color 		= users_around[c].color;				
-						var nearby_latitude 	= users_around[c].latitude;
-						var nearby_longitude 	= users_around[c].longitude;
-
-						alert(nearby_latitude);
-						alert(nearby_longitude);
-						
-						var pin = Titanium.Map.createAnnotation
-						({
-							latitude : nearby_latitude,
-							longitude : nearby_longitude,
-							title : "P" . i,
-							pincolor : Titanium.Map.ANNOTATION_RED,
-							myid : i // CUSTOM ATTRIBUTE THAT IS PASSED INTO EVENT OBJECTS
-						});
-		
-					}
+			try
+			{				
+				var users_around = JSON.parse(this.responseText);
 				
+
+				for ( var i = 0; i < users_around.length; i++ )
+				{
+					// var nearby_color 		= users_around[c].color;				
+					var nearby_latitude 	= users_around[i].latitude;
+					var nearby_longitude 	= users_around[i].longitude;
+					var nearby_color		= users_around[i].color;
+
+					Ti.API.log(users_around[i]);
+						
+					var pin = Titanium.Map.createAnnotation
+					({
+						latitude : nearby_latitude,
+						longitude : nearby_longitude,
+						title : "P" . i,
+						pincolor : Titanium.Map.ANNOTATION_RED,
+						myid : i // CUSTOM ATTRIBUTE THAT IS PASSED INTO EVENT OBJECTS
+					});
+					mapview.addAnnotation(pin);
+				}
+
                 // suppose mapView is your map object
-                mapview.addAnnotation(pin);
+                
 
 				}
 				catch(E){

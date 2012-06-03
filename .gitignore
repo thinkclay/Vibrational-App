@@ -1,5 +1,6 @@
 # Titanium Stuff
 .project
+.settings
 build
 build.log
 tiapp.xml
