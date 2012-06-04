@@ -2,6 +2,7 @@ var win = Ti.UI.currentWindow;
 
 win.hideNavBar();
 
+
 var background = Ti.UI.createImageView({
 	image:			'images/bg-logo.png',
 	top: 			'22%',
@@ -17,19 +18,13 @@ var header = Ti.UI.createImageView({
 });
 win.add(header);
 
-
-var about_text = 
-	'The Vibrational App is a concept created by just2Choices, ' +
-	'a principal founded around the idea that everything is based on cause and effect. ' +
-	'Even the smallest choices you make everyday shift your vibrational patterns in energy, emotions and outcome. ' +
-	'This app will introduce you to your current and potential vibrational color, and those around you.';
  	
 var about = Ti.UI.createLabel({
 	color: 			'#eee',
 	font: 			{ fontSize: 15, lineHeight: 20 },
 	left: 			15,
 	right: 			15,
-	text: 			about_text,	
+	text: 			L('about-text'),	
 	textAlign: 		Ti.UI.TEXT_ALIGNMENT_LEFT,
 	top: 			60,
 	height: 		'auto',
