@@ -66,7 +66,7 @@ Titanium.Geolocation.getCurrentPosition(function(e) {
 						latitude : nearby_latitude,
 						longitude : nearby_longitude,
 						title : "P" . i,
-						pincolor : Titanium.Map.ANNOTATION_RED,
+						image: 'images/pins/'+users_around[i].color+'.png',
 						myid : i // CUSTOM ATTRIBUTE THAT IS PASSED INTO EVENT OBJECTS
 					});
 					mapview.addAnnotation(pin);

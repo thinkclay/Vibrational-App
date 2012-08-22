@@ -2,7 +2,14 @@
 <resources>
 	<string name="tab-about">About</string>	
 	<string name="tab-profile">Profile</string>
-	<string name="tab-location">Around Me</string>
-	
-	<string name="about-text">The Vibrational App is a concept created by just2Choices, a principal founded around the idea that everything is based on cause and effect. Even the smallest choices you make everyday shift your vibrational patterns in energy, emotions and outcome. This app will introduce you to your current and potential vibrational color, and those around you.</string>
+	<string name="tab-location">Coming Soon</string>
+		
+	<string name="step1-button">Continue Reading...</string>
+	<string name="step1-text">The Vibrational App is a concept created by Just 2 Choices®, a principle founded around the idea that even the smallest choices you make every day shift your vibrational patterns of energy and emotions to influence the quality of life that you experience every day in your health, wealth, relationships, career, and more. This App helps you continuously improve your quality of life... choice by choice!</string>
+
+	<string name="step2-button">View the EVCS®</string>
+	<string name="step2-text">The key to living the great life that you desire is being aware of what choices of thoughts and feelings that you give your attention to... that is, being aware of what you consistently focus your attention on. There is an old saying that, ‟Where your attention goes, your energy flows.” This App will give you that feedback in two formats on the EVCS®—graphics and words. Using both of these formats, you will be able to quickly and easily fine-tune your daily choices so you can transform your ordinary, every day choices into extraordinary choices and live that extraordinary life that you desire... be it in health, wealth, relationships, career and more! 
+		
+Next you will see the Emotional-Vibrational Color Scale® (EVCS) which you will refer to as you answer each of the 10 questions. Notice the correlation between the graphics in the rainbow of colors in the visible light spectrum and the emotions that match on the words list.</string>
+	<string name="step3-button">Measure your Choices</string>
 </resources>
